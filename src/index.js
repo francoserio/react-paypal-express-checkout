@@ -34,12 +34,15 @@ class PaypalButton extends React.Component {
     }
 
     render() {
+        let transactionsArray = [{ amount: { total: this.props.total, currency: this.props.currency } }];
+        Object.keys(this.props.paymentOptions).forEach(key => {
+          transactionsArray[0][key] = this.props.paymentOptions[key];
+        });
+
         let payment = () => {
-            return paypal.rest.payment.create(this.props.env, this.props.client, Object.assign({
-                transactions: [
-                    { amount: { total: this.props.total, currency: this.props.currency } }
-                ]
-            }, this.props.paymentOptions), {
+            return paypal.rest.payment.create(this.props.env, this.props.client, {
+                transactions: transactionsArray
+            }, {
                 input_fields: {
                     // any values other than null, and the address is not returned after payment execution.
                     no_shipping: this.props.shipping
