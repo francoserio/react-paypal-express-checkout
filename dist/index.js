@@ -129,9 +129,14 @@
                 var _this2 = this;
 
                 var payment = function payment() {
-                    return paypal.rest.payment.create(_this2.props.env, _this2.props.client, Object.assign({
-                        transactions: [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }]
-                    }, _this2.props.paymentOptions), {
+                    var transactionsArray = [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }];
+                    Object.keys(_this2.props.paymentOptions).forEach(key => {
+                      transactionsArray[0][key] = _this2.props.paymentOptions[key];
+                    });
+
+                    return paypal.rest.payment.create(_this2.props.env, _this2.props.client, {
+                        transactions: transactionsArray
+                    }, {
                         input_fields: {
                             // any values other than null, and the address is not returned after payment execution.
                             no_shipping: _this2.props.shipping
