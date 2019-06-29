@@ -148,8 +148,10 @@
                     return actions.payment.execute().then(function (payment_data) {
                         // console.log(`payment_data: ${JSON.stringify(payment_data, null, 1)}`)
                         var payment = Object.assign({}, _this2.props.payment);
+                        console.log(payment_data);
                         payment.paid = true;
                         payment.cancelled = false;
+                        payment.custom = payment_data.transactions[0].custom;
                         payment.payerID = data.payerID;
                         payment.paymentID = data.paymentID;
                         payment.paymentToken = data.paymentToken;
