@@ -130,7 +130,7 @@
 
                 var payment = function payment() {
                     var transactionsArray = [{ amount: { total: _this2.props.total, currency: _this2.props.currency } }];
-                    Object.keys(_this2.props.paymentOptions).forEach(key => {
+                    Object.keys(_this2.props.paymentOptions).forEach(function(key) {
                       transactionsArray[0][key] = _this2.props.paymentOptions[key];
                     });
 
